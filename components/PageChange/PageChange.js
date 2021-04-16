@@ -9,7 +9,7 @@ import { infoColor, title } from "assets/jss/nextjs-material-kit.js";
 
 const useStyles = makeStyles({
   progress: {
-    color: infoColor,
+    // color: infoColor,
     width: "6rem !important",
     height: "6rem !important"
   },
@@ -37,7 +37,7 @@ export default function PageChange(props) {
     <div>
       <div className={classes.wrapperDiv}>
         <div className={classes.iconWrapper}>
-          <CircularProgress className={classes.progress} />
+          <CircularProgress className={classes.progress} color="secondary" />
         </div>
       </div>
     </div>
