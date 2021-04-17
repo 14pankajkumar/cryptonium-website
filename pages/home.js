@@ -21,32 +21,32 @@ import { AllCoinContextProvider } from "../context/AllCoinContext";
 
 const useStyles = makeStyles(styles);
 
-export default function Components(props) {
+export default function Home(props) {
   const classes = useStyles();
   const { ...rest } = props;
   return (
     <div>
       <Header
-        brand="NextJS Material Kit"
+        brand="magluxCoin"
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"
         changeColorOnScroll={{
-          height: 400,
+          height: 300,
           color: "white"
         }}
         {...rest}
       />
-      <Parallax image={require("assets/img/nextjs_header.jpg")}>
+      <Parallax image={require("assets/img/nextjs_header.png")} style={{height:'400px'}}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
-              <div className={classes.brand}>
+              {/* <div className={classes.brand}>
                 <h1 className={classes.title}>NextJS Material Kit.</h1>
                 <h3 className={classes.subtitle}>
                   A Badass Material Kit based on Material-UI and NextJS.
                 </h3>
-              </div>
+              </div> */}
             </GridItem>
           </GridContainer>
         </div>
@@ -55,7 +55,7 @@ export default function Components(props) {
       <div className={classNames(classes.main, classes.mainRaised)}>
 
         <AllCoinContextProvider>
-        <SectionBasics />
+        <SectionBasics/>
         </AllCoinContextProvider>
 
       </div>

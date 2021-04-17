@@ -3,12 +3,12 @@ import customCheckboxRadioSwitch from "assets/jss/nextjs-material-kit/customChec
 
 const basicsStyle = {
   sections: {
-    padding: "70px 0"
+    padding: "50px 0"
   },
   container,
   title: {
     ...title,
-    marginTop: "30px",
+    marginTop: "0px",
     minHeight: "32px",
     textDecoration: "none"
   },
