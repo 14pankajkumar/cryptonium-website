@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import Button from "components/CustomButtons/Button.js";
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+// import { Button } from '@material-ui/core';
 
 const theme = createMuiTheme({
     palette: {
@@ -30,19 +31,19 @@ export default function FormDialog() {
   };
 
   return (
-    <div>
-        <ThemeProvider theme={theme}>
-      <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
+    <div>  
+      <Button color="success" onClick={handleClickOpen}>
         Subscribe
       </Button>
-      <form>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <form>
         <DialogContent>
           <DialogContentText>
             To subscribe to this website, please enter your email address here. We will send updates
             occasionally.
           </DialogContentText>
+          <ThemeProvider theme={theme}>
           <TextField
             color="secondary"
             autoFocus
@@ -51,19 +52,20 @@ export default function FormDialog() {
             label="Email Address"
             type="email"
             fullWidth
+            required
           />
+          </ThemeProvider>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
+          <Button onClick={handleClose} color="rose">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="secondary">
+          <Button type="submit" color="success">
             Subscribe
           </Button>
         </DialogActions>
+        </form>
       </Dialog>
-      </form>
-      </ThemeProvider>
     </div>
   );
 }

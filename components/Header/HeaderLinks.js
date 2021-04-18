@@ -13,9 +13,11 @@ import Icon from "@material-ui/core/Icon";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import BookIcon from '@material-ui/icons/Book';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 // core components
 import Button from "components/CustomButtons/Button.js";
+import Login from "components/Login/Login.js"
 
 import styles from "assets/jss/nextjs-material-kit/components/headerLinksStyle.js";
 
@@ -26,44 +28,48 @@ export default function HeaderLinks(props) {
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
+      <Link href="/news" as="/news">
         <Button
-          // href="https://www.creative-tim.com/product/nextjs-material-kit-pro?ref=njsmk-navbar"
+          href="/news"
           color="transparent"
-          target="_blank"
           className={classes.navLink}
         >
-          <ImportContactsIcon className={classes.icons}/>News
+          <ImportContactsIcon className={classes.icons}/>News 
         </Button>
+        </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
+      <Link href="/upgrade" as="/upgrade">
         <Button
-          // href="https://www.creative-tim.com/product/nextjs-material-kit-pro?ref=njsmk-navbar"
           color="transparent"
           target="_blank"
           className={classes.navLink}
         >
           <Icon className={classes.icons}>unarchive</Icon> Upgrade to PRO
         </Button>
+        </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
+      <Link href="/newsletter" as="/newsletter">
         <Button
-          // href="https://www.creative-tim.com/product/nextjs-material-kit?ref=njsmk-navbar"
           color="transparent"
           target="_blank"
           className={classes.navLink}
         >
           <MailOutlineIcon className={classes.icons} /> Newsletter
         </Button>
+        </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
+      <Link href="/blogs" as="/blogs">
         <Button
-          // href="https://www.creative-tim.com/product/nextjs-material-kit?ref=njsmk-navbar"
           color="transparent"
           target="_blank"
           className={classes.navLink}
         >
           <BookIcon className={classes.icons} /> Blogs
         </Button>
+        </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
         <Tooltip
@@ -73,7 +79,7 @@ export default function HeaderLinks(props) {
           classes={{ tooltip: classes.tooltip }}
         >
           <Button
-            // href="https://twitter.com/CreativeTim?ref=creativetim"
+            href="https://twitter.com"
             target="_blank"
             color="transparent"
             className={classes.navLink}
@@ -91,7 +97,7 @@ export default function HeaderLinks(props) {
         >
           <Button
             color="transparent"
-            // href="https://www.facebook.com/CreativeTim?ref=creativetim"
+            href="https://www.facebook.com"
             target="_blank"
             className={classes.navLink}
           >
@@ -108,7 +114,7 @@ export default function HeaderLinks(props) {
         >
           <Button
             color="transparent"
-            // href="https://www.instagram.com/CreativeTimOfficial?ref=creativetim"
+            href="https://www.instagram.com"
             target="_blank"
             className={classes.navLink}
           >
@@ -116,6 +122,7 @@ export default function HeaderLinks(props) {
           </Button>
         </Tooltip>
       </ListItem>
+      <Login/>
     </List>
   );
 }
