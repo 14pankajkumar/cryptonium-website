@@ -13,17 +13,23 @@ import Icon from "@material-ui/core/Icon";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import BookIcon from '@material-ui/icons/Book';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 // core components
 import Button from "components/CustomButtons/Button.js";
-import Login from "components/Login/Login.js"
+import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
 
 import styles from "assets/jss/nextjs-material-kit/components/headerLinksStyle.js";
+
+import {useAuth} from "../../firebase/auth";
+import firebaseClient from "../../firebase/firebaseClient";
+import firebase from "firebase/app"
+import "firebase/auth"
 
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
+  firebaseClient();
+  const {user} = useAuth();
   const classes = useStyles();
   return (
     <List className={classes.list}>
@@ -122,7 +128,56 @@ export default function HeaderLinks(props) {
           </Button>
         </Tooltip>
       </ListItem>
-      <Login/>
+      <ListItem className={classes.listItem} hidden={user}>
+      <Link href="/login" as="/login">
+      <Tooltip
+          id="login-tooltip"
+          title="LogIn or SignUp"
+          placement={"top"}
+          classes={{ tooltip: classes.tooltip }}
+        >
+        <Button
+          color="transparent"
+            className={classes.navLink}
+        >
+            <i className={classes.socialIcons + " fas fa-user"} />
+          </Button>
+        </Tooltip>
+      </Link>
+      </ListItem>
+      <ListItem className={classes.listItem} hidden={!user}>
+      <CustomDropdown
+          noLiPadding
+          navDropdown
+          buttonText="Components"
+          buttonProps={{
+            className: classes.navLink,
+            color: "transparent"
+          }}
+          // buttonIcon={PersonOutlineIcon}
+          dropdownList={[
+            <Link href="/components">
+              <a className={classes.dropdownLink}>All components</a>
+            </Link>,
+            <a
+              href="https://creativetimofficial.github.io/nextjs-material-kit/#/documentation?ref=njsmk-navbar"
+              target="_blank"
+              className={classes.dropdownLink}
+            >
+              Documentation
+            </a>,
+            <Link href="#">
+            <a className={classes.dropdownLink}
+            onClick={async () => {
+              await firebase.auth().signOut();
+              window.location.href = "/"
+            }}
+            >
+              Log Out
+            </a></Link>
+          ]}
+        />
+        </ListItem>
     </List>
   );
 }

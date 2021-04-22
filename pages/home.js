@@ -32,12 +32,12 @@ export default function Home(props) {
         fixed
         color="transparent"
         changeColorOnScroll={{
-          height: 300,
+          height: 90,
           color: "white"
         }}
         {...rest}
       />
-      <Parallax image={require("assets/img/nextjs_header.png")} style={{height:'400px'}}>
+      <Parallax image={require("assets/img/nextjs_header.png")} style={{height:'200px'}}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
