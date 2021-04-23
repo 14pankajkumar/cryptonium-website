@@ -2,7 +2,7 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react components for routing our app without refresh
-
+import Link from "next/link";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
@@ -14,18 +14,16 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
-import SectionCoinData from "../../pages-sections/Components-Sections/SectionCoinData";
-import SectionDescription from "../../pages-sections/Components-Sections/SectionDescription"
+import SectionWatchlist from "../pages-sections/Components-Sections/SectionWatchlist"
 
 import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 
+
 const useStyles = makeStyles(styles);
 
-export default function Home({coin, description}) {
+export default function Home(props) {
   const classes = useStyles();
-//   const { ...rest } = props;
-  
-  
+  const { ...rest } = props;
   return (
     <div>
       <Header
@@ -37,7 +35,7 @@ export default function Home({coin, description}) {
           height: 90,
           color: "white"
         }}
-        // {...rest}
+        {...rest}
       />
       <Parallax image={require("assets/img/nextjs_header.png")} style={{height:'200px'}}>
         <div className={classes.container}>
@@ -53,30 +51,13 @@ export default function Home({coin, description}) {
           </GridContainer>
         </div>
       </Parallax>
-            
+
       <div className={classNames(classes.main, classes.mainRaised)}>
-      
-        <SectionCoinData coin={coin}/>
-        <SectionDescription description={description} />
+
+        <SectionWatchlist/>
+
       </div>
       <Footer />
     </div>
   );
 }
-
-export async function getServerSideProps(context) {
-    const {id} = context.query
-
-    const des = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`)
-    const res = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${id}`)
-
-    const data = await res.json()
-    const coinDes = await des.json()
-    return {
-        props: {
-            coin: data[0],
-            description: coinDes
-        }
-    }
-}
-

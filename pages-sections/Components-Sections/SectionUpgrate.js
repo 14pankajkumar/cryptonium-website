@@ -26,7 +26,7 @@ const useStyles = makeStyles(styles, {
 });
 
 
-const SectionBlog = () => {
+const SectionUpgrate = () => {
 
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(false)
@@ -47,7 +47,7 @@ const SectionBlog = () => {
                 <div className={classes.container}>
                 <div className={classes.title}>
                     <div style={{float:'left'}}>
-                    <h2 className="title">Our Blogs </h2>
+                    <h2 className="title">Upgrade to pro </h2>
                     </div>
                 </div>
             
@@ -62,4 +62,4 @@ const SectionBlog = () => {
     )
 
 }
-export default SectionBlog
+export default SectionUpgrate

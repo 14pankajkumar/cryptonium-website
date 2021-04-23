@@ -156,16 +156,9 @@ export default function HeaderLinks(props) {
           }}
           // buttonIcon={PersonOutlineIcon}
           dropdownList={[
-            <Link href="/components">
-              <a className={classes.dropdownLink}>All components</a>
+            <Link href="/watchlist" as="/watchlist">
+              <a className={classes.dropdownLink}>Watchlist</a>
             </Link>,
-            <a
-              href="https://creativetimofficial.github.io/nextjs-material-kit/#/documentation?ref=njsmk-navbar"
-              target="_blank"
-              className={classes.dropdownLink}
-            >
-              Documentation
-            </a>,
             <Link href="#">
             <a className={classes.dropdownLink}
             onClick={async () => {

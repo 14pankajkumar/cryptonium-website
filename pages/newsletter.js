@@ -14,7 +14,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
-
+import SectioNewsLetter from "../pages-sections/Components-Sections/SectioNewsLetter"
 
 import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 
@@ -54,7 +54,8 @@ export default function Home(props) {
 
       <div className={classNames(classes.main, classes.mainRaised)}>
 
-        
+        <SectioNewsLetter/>
+
       </div>
       <Footer />
     </div>

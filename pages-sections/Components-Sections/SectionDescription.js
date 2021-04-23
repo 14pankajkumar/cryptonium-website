@@ -2,21 +2,10 @@ import React, { useEffect, useState, useContext } from 'react'
 
 import styles from "assets/jss/nextjs-material-kit/pages/componentsSections/basicsStyle.js";
 
-import coinGecko from 'apis/coinGecko.js'
-import { AllCoinContext } from 'context/AllCoinContext.js'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import PageChange from 'components/PageChange/PageChange.js'
-import Link from 'next/link';
 
-import { fade, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles(styles, {
@@ -26,11 +15,10 @@ const useStyles = makeStyles(styles, {
 });
 
 
-const SectionBlog = () => {
+const SectionDescription = ({description}) => {
 
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(false)
-
 
     const renderCoins = () =>{
         if (isLoading) {
@@ -46,11 +34,14 @@ const SectionBlog = () => {
             <div  className={classes.sections}>
                 <div className={classes.container}>
                 <div className={classes.title}>
-                    <div style={{float:'left'}}>
-                    <h2 className="title">Our Blogs </h2>
-                    </div>
+                <h2 className="title">Description </h2>
                 </div>
-            
+                    <div className="bg-white mt-3 p-2 rounded border row">
+                        
+
+                       <Typography>{description.description.en} </Typography>
+                        
+                    </div>
                 </div>
             </div>
         );
@@ -62,4 +53,4 @@ const SectionBlog = () => {
     )
 
 }
-export default SectionBlog
+export default SectionDescription
