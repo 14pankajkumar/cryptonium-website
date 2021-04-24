@@ -183,13 +183,6 @@ const SectionBasics = () => {
                                     >
                                     {formatPercent(coin.price_change_percentage_24h)}
                                     </span></TableCell>
-                            {/* <TableCell align="right"><span
-                                    className={coin.price_change_percentage_24h > 0 ? (
-                                        'text-success'
-                                    ) : 'text-danger'}
-                                    >
-                                    {formatPercent(coin.price_change_percentage_24h)}
-                                    </span></TableCell> */}
                             <TableCell align="right">{formatDollar(coin.current_price, 20)}</TableCell>
                             <TableCell align="right">{formatDollar(coin.market_cap, 12)}</TableCell>
                         </TableRow>

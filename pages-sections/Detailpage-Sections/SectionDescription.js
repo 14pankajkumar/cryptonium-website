@@ -8,11 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
 
-const useStyles = makeStyles(styles, {
-  table: {
-    minWidth: 650,
-  },
-});
+const useStyles = makeStyles(styles);
 
 
 const SectionDescription = ({description}) => {

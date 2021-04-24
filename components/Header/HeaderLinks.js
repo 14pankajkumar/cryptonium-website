@@ -13,6 +13,7 @@ import Icon from "@material-ui/core/Icon";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import BookIcon from '@material-ui/icons/Book';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 // core components
 import Button from "components/CustomButtons/Button.js";
@@ -149,12 +150,12 @@ export default function HeaderLinks(props) {
       <CustomDropdown
           noLiPadding
           navDropdown
-          buttonText="Components"
+          // buttonText="Components"
           buttonProps={{
             className: classes.navLink,
             color: "transparent"
           }}
-          // buttonIcon={PersonOutlineIcon}
+          buttonIcon={AccountCircleIcon}
           dropdownList={[
             <Link href="/watchlist" as="/watchlist">
               <a className={classes.dropdownLink}>Watchlist</a>

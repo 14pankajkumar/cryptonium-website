@@ -7,11 +7,7 @@ import PageChange from 'components/PageChange/PageChange.js'
 import { makeStyles } from '@material-ui/core/styles';
 
 
-const useStyles = makeStyles(styles, {
-  table: {
-    minWidth: 650,
-  },
-});
+const useStyles = makeStyles(styles);
 
 
 const SectionCoinData = ({coin}) => {
