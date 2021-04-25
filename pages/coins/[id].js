@@ -22,10 +22,10 @@ import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 
 const useStyles = makeStyles(styles);
 
-export default function Home({coin, description, day, week, year}) {
+export default function Home({coin, description, day, week, year, fiveYear}) {
   const classes = useStyles();
 //   const { ...rest } = props;
-  console.log(day);
+  console.log(fiveYear);
   
   
   return (
@@ -58,7 +58,7 @@ export default function Home({coin, description, day, week, year}) {
             
       <div className={classNames(classes.main, classes.mainRaised)}>
         <SectionCoinData coin={coin}/>
-        <SectionChart day={day} week={week} year={year} />
+        <SectionChart day={day} week={week} year={year} fiveYear={fiveYear} />
         <SectionDescription description={description} />
       </div>
       <Footer />
@@ -82,12 +82,14 @@ export async function getServerSideProps(context) {
     const oneDay = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`)
     const sevenDay = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7`)
     const oneYear = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=365`)
+    const fiveYear = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1825`)
 
     const data = await res.json()
     const coinDes = await des.json()
     const oneDayChart = await oneDay.json()
     const sevenDayChart = await sevenDay.json()
     const oneYearChart = await oneYear.json()
+    const fiveYearChart = await fiveYear.json()
     
     return {
         props: {
@@ -96,7 +98,7 @@ export async function getServerSideProps(context) {
             day: formatData(oneDayChart.prices),
             week: formatData(sevenDayChart.prices),
             year: formatData(oneYearChart.prices),
-            
+            fiveYear: formatData(fiveYearChart.prices),
         }
     }
 }

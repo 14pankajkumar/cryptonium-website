@@ -17,13 +17,14 @@ import Parallax from "components/Parallax/Parallax.js";
 import SectionBasics from "pages-sections/Components-Sections/SectionBasics.js";
 
 import styles from "assets/jss/nextjs-material-kit/pages/components.js";
-import { AllCoinContextProvider } from "../context/AllCoinContext";
 
 const useStyles = makeStyles(styles);
 
-export default function Home(props) {
+export default function serverSide({coinList, secondPageCoin, thirdPageCoin, fourthPageCoin, fifthPageCoin}) {
   const classes = useStyles();
-  const { ...rest } = props;
+  console.log(coinList);
+  
+  // const { ...rest } = props;
   return (
     <div>
       <Header
@@ -35,7 +36,7 @@ export default function Home(props) {
           height: 90,
           color: "white"
         }}
-        {...rest}
+        // {...rest}
       />
       <Parallax image={require("assets/img/nextjs_header.png")} style={{height:'200px'}}>
         <div className={classes.container}>
@@ -51,15 +52,35 @@ export default function Home(props) {
           </GridContainer>
         </div>
       </Parallax>
-
       <div className={classNames(classes.main, classes.mainRaised)}>
-
-        <AllCoinContextProvider>
-        <SectionBasics/>
-        </AllCoinContextProvider>
-
+        <SectionBasics coinList={coinList} secondPageCoin={secondPageCoin} thirdPageCoin={thirdPageCoin} 
+        fourthPageCoin={fourthPageCoin} fifthPageCoin={fifthPageCoin} />
       </div>
       <Footer />
     </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false')
+  const second = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=2&sparkline=false')
+  const third = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=3&sparkline=false')
+  const fourth = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=4&sparkline=false')
+  const fifth = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=5&sparkline=false')
+
+  const filteredCoins = await res.json()
+  const secondPage = await second.json()
+  const thirdPage = await third.json()
+  const fourthPage = await fourth.json()
+  const fifthPage = await fifth.json()
+  return {
+    props: {
+      coinList: filteredCoins,
+      secondPageCoin: secondPage,
+      thirdPageCoin: thirdPage,
+      fourthPageCoin: fourthPage,
+      fifthPageCoin: fifthPage,
+    }
+  }
+}
+

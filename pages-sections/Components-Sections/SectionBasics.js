@@ -1,9 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-
 import styles from "assets/jss/nextjs-material-kit/pages/componentsSections/basicsStyle.js";
-
-import coinGecko from 'apis/coinGecko.js'
-import { AllCoinContext } from 'context/AllCoinContext.js'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,10 +9,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import PageChange from 'components/PageChange/PageChange.js'
 import Link from 'next/link';
-
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import Button from 'components/CustomButtons/Button.js'
 
 
 const useStyles = makeStyles(styles, {
@@ -69,17 +65,32 @@ const searchStyles = makeStyles((theme) => ({
       },
 }))
 
-const SectionBasics = () => {
+const SectionBasics = ({coinList, secondPageCoin, thirdPageCoin, fourthPageCoin, fifthPageCoin}) => {
     const [search, setsearch] = useState('')
-
     const classes = useStyles();
     const searchclasses = searchStyles();
-
-    const [coins, setCoins] = useState([]);
-    const { allCoinList } = useContext(AllCoinContext);
     const [isLoading, setIsLoading] = useState(false)
 
-    const fileterCoins = coins.filter(coin => 
+    const [pageFormat, setpageFormat] = useState("1");
+    const determinePageFormat = () => {
+        switch (pageFormat) {
+          case "1":
+            return coinList;
+          case "2":
+            return secondPageCoin;
+          case "3":
+            return thirdPageCoin;
+          case "4":
+            return fourthPageCoin;
+          case "5":
+            return fifthPageCoin;
+          default:
+            return coinList;
+        }
+      };
+
+
+    const fileterCoins = determinePageFormat().filter(coin => 
         coin.name.toLowerCase().includes(search.toLowerCase())
         )
 
@@ -99,21 +110,6 @@ const SectionBasics = () => {
             maximumSignificantDigits
         })
         .format(number);
-  
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true)
-            const response = await coinGecko.get("/coins/markets", {
-                params:{
-                    vs_currency : "usd",
-                    ids : allCoinList.join(",")
-                }
-            })
-            setCoins(response.data)
-            setIsLoading(false)
-        }
-        fetchData()
-    },[allCoinList])
 
     const renderCoins = () =>{
         if (isLoading) {
@@ -190,6 +186,11 @@ const SectionBasics = () => {
                     </TableBody>
                 </Table>
                 </TableContainer>
+                <Button color="primary" onClick={() => setpageFormat("1")}>1</Button>
+                <Button color="primary" onClick={() => setpageFormat("2")}>2</Button>
+                <Button color="primary" onClick={() => setpageFormat("3")}>3</Button>
+                <Button color="primary" onClick={() => setpageFormat("4")}>4</Button>
+                <Button color="primary" onClick={() => setpageFormat("5")}>5</Button>
                 </div>
             </div>
         );
