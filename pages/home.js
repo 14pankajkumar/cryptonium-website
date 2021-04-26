@@ -20,9 +20,11 @@ import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 
 const useStyles = makeStyles(styles);
 
-export default function serverSide({coinList, secondPageCoin, thirdPageCoin, fourthPageCoin, fifthPageCoin}) {
+export default function serverSide({coinList, secondPageCoin, thirdPageCoin, fourthPageCoin, fifthPageCoin, globalDataCoin}) {
   const classes = useStyles();
-  console.log(coinList);
+  console.log(globalDataCoin);
+  const formatPercent = number =>
+  `${new Number(number).toFixed(2)}%`
   
   // const { ...rest } = props;
   return (
@@ -43,9 +45,14 @@ export default function serverSide({coinList, secondPageCoin, thirdPageCoin, fou
           <GridContainer>
             <GridItem>
               {/* <div className={classes.brand}>
-                <h1 className={classes.title}>NextJS Material Kit.</h1>
                 <h3 className={classes.subtitle}>
-                  A Badass Material Kit based on Material-UI and NextJS.
+                  Coins: {globalDataCoin.active_cryptocurrencies}
+                </h3>
+                <h3 className={classes.subtitle}>
+                  Markets: {globalDataCoin.markets}
+                </h3>
+                <h3 className={classes.subtitle}>
+                  Dominance: BTC {formatPercent(globalDataCoin.market_cap_percentage.btc)} ETH {formatPercent(globalDataCoin.market_cap_percentage.eth)}     
                 </h3>
               </div> */}
             </GridItem>
@@ -67,12 +74,14 @@ export const getServerSideProps = async () => {
   const third = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=3&sparkline=false')
   const fourth = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=4&sparkline=false')
   const fifth = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=5&sparkline=false')
+  const global = await fetch("https://api.coingecko.com/api/v3/global")
 
   const filteredCoins = await res.json()
   const secondPage = await second.json()
   const thirdPage = await third.json()
   const fourthPage = await fourth.json()
   const fifthPage = await fifth.json()
+  const globalData = await global.json()
   return {
     props: {
       coinList: filteredCoins,
@@ -80,6 +89,7 @@ export const getServerSideProps = async () => {
       thirdPageCoin: thirdPage,
       fourthPageCoin: fourthPage,
       fifthPageCoin: fifthPage,
+      globalDataCoin: globalData.data,
     }
   }
 }
