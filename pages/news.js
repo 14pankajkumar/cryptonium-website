@@ -21,13 +21,14 @@ import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 
 const useStyles = makeStyles(styles);
 
-export default function Home(props) {
+export default function News({newsData}) {
+  console.log("News", newsData)
   const classes = useStyles();
-  const { ...rest } = props;
+  // const { ...rest } = props;
   return (
     <div>
       <Header
-        brand="magluxCoin"
+        brand="cryptonium"
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"
@@ -35,7 +36,7 @@ export default function Home(props) {
           height: 90,
           color: "white"
         }}
-        {...rest}
+        // {...rest}
       />
       <Parallax image={require("assets/img/nextjs_header.png")} style={{height:'200px'}}>
         <div className={classes.container}>
@@ -60,4 +61,17 @@ export default function Home(props) {
       <Footer />
     </div>
   );
+}
+
+export const getServerSideProps = async () => {
+  const id = "crypto OR blockchain OR elon OR vitalik OR defi OR nft"
+  const res = await fetch(`https://newsapi.org/v2/everything?q=${id}&from=2021-06-18&sortBy=publishedAt&apiKey=eac4785ce4574e5494e1af3166215957`)
+
+  const newsRes = await res.json()
+
+  return {
+    props: {
+      newsData: newsRes,
+    }
+  }
 }

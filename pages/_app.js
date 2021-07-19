@@ -50,7 +50,7 @@ export default class MyApp extends App {
     return (
       <React.Fragment>
         <Head>
-          <title>magluxCoin</title>
+          <title>cryptonium</title>
         </Head>
         <AuthProvider>
         <Component {...pageProps} />

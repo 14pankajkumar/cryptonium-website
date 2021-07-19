@@ -9,7 +9,7 @@ import Button from "components/CustomButtons/Button.js";
 const useStyles = makeStyles(styles);
 
 
-const SectionChart = ({day, week, year, fiveYear}) => {
+const SectionChart = ({day, week, year}) => {
     const chartRef = useRef();
     const classes = useStyles();
     const [timeFormat, setTimeFormat] = useState("24h");
@@ -22,8 +22,6 @@ const SectionChart = ({day, week, year, fiveYear}) => {
             return week;
           case "1y":
             return year;
-          case "5y":
-            return fiveYear;
           default:
             return day;
         }
@@ -80,13 +78,6 @@ const SectionChart = ({day, week, year, fiveYear}) => {
                         className="btn btn-outline-secondary btn-sm"
                         >
                         1y
-                        </Button>
-                        <Button
-                        color="primary"
-                        onClick={() => setTimeFormat("5y")}
-                        className="btn btn-outline-secondary btn-sm"
-                        >
-                        5y
                         </Button>
                     </div>
                         

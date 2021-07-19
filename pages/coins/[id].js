@@ -15,23 +15,21 @@ import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
 import SectionCoinData from "../../pages-sections/Detailpage-Sections/SectionCoinData";
-import SectionDescription from "../../pages-sections/Detailpage-Sections/SectionDescription"
 import SectionChart from "../../pages-sections/Detailpage-Sections/SectionChart"
 
 import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 
 const useStyles = makeStyles(styles);
 
-export default function Home({coin, description, day, week, year, fiveYear}) {
+export default function Home({coin, day, week, year, coinNewsData}) {
   const classes = useStyles();
 //   const { ...rest } = props;
-  console.log(fiveYear);
-  
+  console.log("Coin News", coinNewsData);
   
   return (
     <div>
       <Header
-        brand="magluxCoin"
+        brand="cryptonium"
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"
@@ -58,8 +56,7 @@ export default function Home({coin, description, day, week, year, fiveYear}) {
             
       <div className={classNames(classes.main, classes.mainRaised)}>
         <SectionCoinData coin={coin}/>
-        <SectionChart day={day} week={week} year={year} fiveYear={fiveYear} />
-        <SectionDescription description={description} />
+        <SectionChart day={day} week={week} year={year}/>
       </div>
       <Footer />
     </div>
@@ -77,28 +74,25 @@ export async function getServerSideProps(context) {
   };
     const {id} = context.query
 
-    const des = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`)
     const res = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${id}`)
     const oneDay = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`)
     const sevenDay = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7`)
     const oneYear = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=365`)
-    const fiveYear = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1825`)
-
+    const coinNews = await fetch(`https://newsapi.org/v2/everything?q=${id}&from=2021-06-18&sortBy=publishedAt&apiKey=eac4785ce4574e5494e1af3166215957`)
+    
     const data = await res.json()
-    const coinDes = await des.json()
     const oneDayChart = await oneDay.json()
     const sevenDayChart = await sevenDay.json()
     const oneYearChart = await oneYear.json()
-    const fiveYearChart = await fiveYear.json()
+    const coinNewsRes = await coinNews.json()
     
     return {
         props: {
             coin: data[0],
-            description: coinDes,
             day: formatData(oneDayChart.prices),
             week: formatData(sevenDayChart.prices),
             year: formatData(oneYearChart.prices),
-            fiveYear: formatData(fiveYearChart.prices),
+            coinNewsData: coinNewsRes,
         }
     }
 }

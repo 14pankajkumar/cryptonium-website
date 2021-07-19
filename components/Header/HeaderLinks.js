@@ -12,6 +12,7 @@ import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import TimelineIcon from '@material-ui/icons/Timeline';
 import BookIcon from '@material-ui/icons/Book';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
@@ -35,9 +36,18 @@ export default function HeaderLinks(props) {
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
+      <Link href="/market" as="/market">
+        <Button
+          color="transparent"
+          className={classes.navLink}
+        >
+          <TimelineIcon className={classes.icons}/>Market 
+        </Button>
+        </Link>
+      </ListItem>
+      <ListItem className={classes.listItem}>
       <Link href="/news" as="/news">
         <Button
-          href="/news"
           color="transparent"
           className={classes.navLink}
         >
@@ -49,7 +59,6 @@ export default function HeaderLinks(props) {
       <Link href="/upgrade" as="/upgrade">
         <Button
           color="transparent"
-          target="_blank"
           className={classes.navLink}
         >
           <Icon className={classes.icons}>unarchive</Icon> Upgrade to PRO
@@ -60,7 +69,6 @@ export default function HeaderLinks(props) {
       <Link href="/newsletter" as="/newsletter">
         <Button
           color="transparent"
-          target="_blank"
           className={classes.navLink}
         >
           <MailOutlineIcon className={classes.icons} /> Newsletter
@@ -71,7 +79,6 @@ export default function HeaderLinks(props) {
       <Link href="/blogs" as="/blogs">
         <Button
           color="transparent"
-          target="_blank"
           className={classes.navLink}
         >
           <BookIcon className={classes.icons} /> Blogs
@@ -157,14 +164,15 @@ export default function HeaderLinks(props) {
           }}
           buttonIcon={AccountCircleIcon}
           dropdownList={[
+              <a className={classes.dropdownLink}>{user ? user.email : null}</a>,
             <Link href="/watchlist" as="/watchlist">
-              <a className={classes.dropdownLink}>Watchlist</a>
-            </Link>,
+            <a className={classes.dropdownLink}>Watchlist</a>
+          </Link>,
             <Link href="#">
             <a className={classes.dropdownLink}
             onClick={async () => {
               await firebase.auth().signOut();
-              window.location.href = "/"
+              // window.location.href = "/"
             }}
             >
               Log Out

@@ -21,13 +21,13 @@ import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 
 const useStyles = makeStyles(styles);
 
-export default function Home(props) {
+export default function NewsLetter(props) {
   const classes = useStyles();
   const { ...rest } = props;
   return (
     <div>
       <Header
-        brand="magluxCoin"
+        brand="cryptonium"
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"

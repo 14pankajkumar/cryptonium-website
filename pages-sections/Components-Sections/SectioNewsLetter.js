@@ -14,37 +14,18 @@ const useStyles = makeStyles(styles, {
 const SectioNewsLetter = () => {
 
     const classes = useStyles();
-    const [isLoading, setIsLoading] = useState(false)
 
-
-    const renderCoins = () =>{
-        if (isLoading) {
-            return <div  className={classes.sections}>
-                        <div className={classes.container}>
-                        <PageChange/>
-                        </div>
-                        </div>
-                    
-        }
-
-        return (
-            <div  className={classes.sections}>
-                <div className={classes.container}>
-                <div className={classes.title}>
-                    <div style={{float:'left'}}>
-                    <h2 className="title">NewsLetter </h2>
-                    </div>
-                </div>
-            
+    return (
+        <div  className={classes.sections}>
+            <div className={classes.container}>
+            <div className={classes.title}>
+                <div style={{float:'left'}}>
+                <h2 className="title">NewsLetter </h2>
                 </div>
             </div>
-        );
-    }
-    return (
-        <div>
-            {renderCoins()}
+        
+            </div>
         </div>
-    )
-
+    );
 }
 export default SectioNewsLetter

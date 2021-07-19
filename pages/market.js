@@ -14,12 +14,13 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
+import SectionBasics from "pages-sections/Components-Sections/SectionBasics.js";
 
 import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 
 const useStyles = makeStyles(styles);
 
-export default function Home() {
+export default function Market({coinList, secondPageCoin, thirdPageCoin, fourthPageCoin, fifthPageCoin, globalDataCoin}) {
   const classes = useStyles();
   
   // const { ...rest } = props;
@@ -56,9 +57,37 @@ export default function Home() {
         </div>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <h1>Home</h1>
+        <SectionBasics coinList={coinList} secondPageCoin={secondPageCoin} thirdPageCoin={thirdPageCoin} 
+        fourthPageCoin={fourthPageCoin} fifthPageCoin={fifthPageCoin} />
       </div>
       <Footer />
     </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false')
+  const second = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=2&sparkline=false')
+  const third = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=3&sparkline=false')
+  const fourth = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=4&sparkline=false')
+  const fifth = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=5&sparkline=false')
+  const global = await fetch("https://api.coingecko.com/api/v3/global")
+
+  const filteredCoins = await res.json()
+  const secondPage = await second.json()
+  const thirdPage = await third.json()
+  const fourthPage = await fourth.json()
+  const fifthPage = await fifth.json()
+  const globalData = await global.json()
+  return {
+    props: {
+      coinList: filteredCoins,
+      secondPageCoin: secondPage,
+      thirdPageCoin: thirdPage,
+      fourthPageCoin: fourthPage,
+      fifthPageCoin: fifthPage,
+      globalDataCoin: globalData.data,
+    }
+  }
+}
+

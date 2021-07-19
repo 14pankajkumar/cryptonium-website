@@ -13,6 +13,7 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Button from 'components/CustomButtons/Button.js'
+import Image from 'next/image'
 
 
 const useStyles = makeStyles(styles, {
@@ -144,6 +145,7 @@ const SectionBasics = ({coinList, secondPageCoin, thirdPageCoin, fourthPageCoin,
                   <TableHead>
                       <TableRow>
                           <TableCell align="right">#</TableCell>
+                          <TableCell >Image</TableCell>
                           <TableCell >Symbol</TableCell>
                           <TableCell >Name</TableCell>
                           <TableCell align="right">24H Change</TableCell>
@@ -157,13 +159,18 @@ const SectionBasics = ({coinList, secondPageCoin, thirdPageCoin, fourthPageCoin,
                       <TableRow key={coin.id}>
                           <TableCell align="right">{coin.market_cap_rank}</TableCell>
                           <TableCell><Link href="/coins/[id]" as={`/coins/${coin.id}`}><a>
-                                  <img
+                                  <Image
                                   src={coin.image}
-                                  style={{width: 25, height: 25, marginRight: 10}}
-                                  alt="/" />
-                                  {coin.symbol.toUpperCase()}
-                              </a>
+                                  height={25}
+                                  width={25}
+                                  alt={coin.symbol} />
+                                  </a>
                               </Link> 
+                          </TableCell>
+                          <TableCell>
+                          <Link href="/coins/[id]" as={`/coins/${coin.id}`}>
+                            <a>{coin.symbol.toUpperCase()} </a>
+                          </Link>
                           </TableCell>
                           <TableCell><span>{coin.name} </span></TableCell>
                           <TableCell align="right"><span

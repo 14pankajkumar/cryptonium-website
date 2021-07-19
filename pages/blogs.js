@@ -21,13 +21,14 @@ import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 
 const useStyles = makeStyles(styles);
 
-export default function Home(props) {
+export default function Blogs({blogData}) {
+  console.log("Blogs", blogData);
   const classes = useStyles();
-  const { ...rest } = props;
+  // const { ...rest } = props;
   return (
     <div>
       <Header
-        brand="magluxCoin"
+        brand="cryptonium"
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"
@@ -35,7 +36,7 @@ export default function Home(props) {
           height: 90,
           color: "white"
         }}
-        {...rest}
+        // {...rest}
       />
       <Parallax image={require("assets/img/nextjs_header.png")} style={{height:'200px'}}>
         <div className={classes.container}>
@@ -60,4 +61,17 @@ export default function Home(props) {
       <Footer />
     </div>
   );
+}
+
+
+export const getServerSideProps = async () => {
+  const res = await fetch('https://maglux-tech.herokuapp.com/api/blogs/')
+
+  const blogRes = await res.json()
+
+  return {
+    props: {
+      blogData: blogRes,
+    }
+  }
 }

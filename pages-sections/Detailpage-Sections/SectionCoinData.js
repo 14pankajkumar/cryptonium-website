@@ -5,6 +5,7 @@ import styles from "assets/jss/nextjs-material-kit/pages/componentsSections/basi
 import PageChange from 'components/PageChange/PageChange.js'
 
 import { makeStyles } from '@material-ui/core/styles';
+import Image from 'next/image'
 
 
 const useStyles = makeStyles(styles);
@@ -52,11 +53,14 @@ const SectionCoinData = ({coin}) => {
                 <div className={classes.container}>
                     <div className={classes.title}>
                         <div style={{float:'left'}}>
-                            <h2 className="title"><img
+                        <h2 className="title"><Image
                                             src={coin.image}
-                                            style={{width: 50, height: 50, marginRight: 10}}
-                                            alt="/" /> 
-                                            {coin.name} </h2>
+                                            height={50}
+                                            width={50}
+                                            style={{ padding: 10}}
+                                            alt="" /> 
+                                            {coin.name}
+                                            </h2>
                         </div>
                         <div style={{float:'right'}}>
                             <h3>{formatDollar(coin.current_price, 20)}

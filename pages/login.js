@@ -20,7 +20,7 @@ import styles from "assets/jss/nextjs-material-kit/pages/loginPage.js";
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import image from "assets/img/bg7.jpg";
+// import image from "assets/img/bg7.jpg";
 
 // ************
 import {useAuth} from "../firebase/auth";
@@ -36,6 +36,10 @@ export default function LoginPage(props) {
   const [email, setemail] = useState("")
   const [pass, setpass] = useState("")
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+
   setTimeout(function() {
     setCardAnimation("");
   }, 700);
@@ -49,11 +53,36 @@ export default function LoginPage(props) {
   });
   const classes = useStyles();
   const { ...rest } = props;
+
+  const signInWithGoogle = () => {
+      firebase.auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      /** @type {firebase.auth.OAuthCredential} */
+      var credential = result.credential;
+
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+    }).catch((error) => {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+  }
+
   if (!user) {
     return (
       <div>
         <Header
-          brand="magluxCoin"
+          brand="cryptonium"
           rightLinks={<HeaderLinks />}
           fixed
           color="transparent"
@@ -66,7 +95,8 @@ export default function LoginPage(props) {
         <div
           className={classes.pageHeader}
           style={{
-            backgroundImage: "url(" + image + ")",
+            // backgroundImage: "url(" + image + ")",
+            backgroundColor: "white",
             backgroundSize: "cover",
             backgroundPosition: "top center"
           }}
@@ -83,25 +113,7 @@ export default function LoginPage(props) {
                           href="#pablo"
                           target="_blank"
                           color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className={"fab fa-twitter"} />
-                        </Button>
-                        <Button
-                          justIcon
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className={"fab fa-facebook"} />
-                        </Button>
-                        <Button
-                          justIcon
-                          href="#pablo"
-                          target="_blank"
-                          color="transparent"
-                          onClick={e => e.preventDefault()}
+                          onClick={() => signInWithGoogle()}
                         >
                           <i className={"fab fa-google"} />
                         </Button>
