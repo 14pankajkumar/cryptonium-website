@@ -5,6 +5,7 @@ const webpack = require("webpack");
 const path = require("path");
 
 module.exports = withPlugins([[withSass], [withImages]], {
+  target: "serverless",
   images: {
     domains: ['assets.coingecko.com', "maglux-tech.herokuapp.com"],
   },
