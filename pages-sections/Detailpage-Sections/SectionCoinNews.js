@@ -9,6 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Link from 'next/link';
 
 const useStyles = makeStyles(styles, {
   table: {
@@ -39,7 +40,7 @@ const useStylesGrid = makeStyles((theme) => ({
 }));
 
 
-const SectionNews = ({newsData}) => {
+const SectionCoinNews = ({coinNewsData}) => {
   const classes = useStyles();
   const classesCard = useStylesCard();
   const classesGrid = useStylesGrid();
@@ -53,10 +54,10 @@ const SectionNews = ({newsData}) => {
               </div>
           </div>
           <Grid container className={classesGrid.root} spacing={2}>
-            {newsData.map(news => (
+            {coinNewsData.map(news => (
               <Grid item xs={12} sm={3} key={news.articles} >
                 <a href={news.url} target="_blank" >
-              <Card className={classesCard.root} style={{height: 400}}>
+              <Card className={classesCard.root}>
                 <CardActionArea>
                   <CardMedia
                     className={classesCard.media}
@@ -90,4 +91,4 @@ const SectionNews = ({newsData}) => {
   );
 
 }
-export default SectionNews
+export default SectionCoinNews

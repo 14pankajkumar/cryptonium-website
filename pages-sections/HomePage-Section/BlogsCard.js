@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from "assets/jss/nextjs-material-kit/pages/componentsSections/basicsStyle.js";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -9,6 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Link from 'next/dist/client/link';
 
 const useStyles = makeStyles(styles, {
   table: {
@@ -39,36 +40,38 @@ const useStylesGrid = makeStyles((theme) => ({
 }));
 
 
-const SectionNews = ({newsData}) => {
+const BlogsCard = ({blogData}) => {
   const classes = useStyles();
   const classesCard = useStylesCard();
   const classesGrid = useStylesGrid();
+
+  console.log("blogData", blogData);
 
   return (
       <div  className={classes.sections}>
           <div className={classes.container}>
           <div className={classes.title}>
               <div style={{float:'left'}}>
-              <h2 className="title">Trending News </h2>
+              <h2 className="title">Must Read </h2>
               </div>
           </div>
           <Grid container className={classesGrid.root} spacing={2}>
-            {newsData.map(news => (
-              <Grid item xs={12} sm={3} key={news.articles} >
-                <a href={news.url} target="_blank" >
+            {blogData.map(post => (
+              <Grid item xs={12} sm={3} key={post.id} >
+                <Link href="/blogs/[id]" as={`/blogs/${post.id}`} >
               <Card className={classesCard.root} style={{height: 400}}>
                 <CardActionArea>
                   <CardMedia
                     className={classesCard.media}
-                    image={news.urlToImage}
-                    title={news.title}
+                    image={post.image}
+                    title={post.title}
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                    {news.title}
+                    {post.title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                      {news.description}
+                      {post.body}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -81,7 +84,7 @@ const SectionNews = ({newsData}) => {
                   </Button>
                 </CardActions>
               </Card>
-              </a>
+              </Link>
               </Grid>
               ))}
           </Grid>
@@ -90,4 +93,4 @@ const SectionNews = ({newsData}) => {
   );
 
 }
-export default SectionNews
+export default BlogsCard

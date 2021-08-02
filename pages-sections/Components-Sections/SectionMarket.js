@@ -66,7 +66,7 @@ const searchStyles = makeStyles((theme) => ({
       },
 }))
 
-const SectionBasics = ({coinList, secondPageCoin, thirdPageCoin, fourthPageCoin, fifthPageCoin}) => {
+const SectionMarket = ({coinList, secondPageCoin, thirdPageCoin, fourthPageCoin, fifthPageCoin}) => {
   const [search, setsearch] = useState('')
   const classes = useStyles();
   const searchclasses = searchStyles();
@@ -203,4 +203,4 @@ const SectionBasics = ({coinList, secondPageCoin, thirdPageCoin, fourthPageCoin,
   )
 
 }
-export default SectionBasics
+export default SectionMarket

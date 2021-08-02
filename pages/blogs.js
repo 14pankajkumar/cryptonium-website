@@ -22,7 +22,6 @@ import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 const useStyles = makeStyles(styles);
 
 export default function Blogs({blogData}) {
-  console.log("Blogs", blogData);
   const classes = useStyles();
   // const { ...rest } = props;
   return (
@@ -53,11 +52,11 @@ export default function Blogs({blogData}) {
         </div>
       </Parallax>
 
-      <div className={classNames(classes.main, classes.mainRaised)}>
+      {/* <div className={classNames(classes.main, classes.mainRaised)}> */}
 
-        <SectionBlog/>
+        <SectionBlog blogData={blogData} />
 
-      </div>
+      {/* </div> */}
       <Footer />
     </div>
   );

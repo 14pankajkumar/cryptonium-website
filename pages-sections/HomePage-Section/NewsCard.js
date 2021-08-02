@@ -39,7 +39,7 @@ const useStylesGrid = makeStyles((theme) => ({
 }));
 
 
-const SectionNews = ({newsData}) => {
+const NewsCard = ({newsData}) => {
   const classes = useStyles();
   const classesCard = useStylesCard();
   const classesGrid = useStylesGrid();
@@ -90,4 +90,4 @@ const SectionNews = ({newsData}) => {
   );
 
 }
-export default SectionNews
+export default NewsCard

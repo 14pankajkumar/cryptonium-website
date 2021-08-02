@@ -14,9 +14,10 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
-import SectionBasics from "pages-sections/Components-Sections/SectionBasics.js";
+import SectionMarket from "../pages-sections/Components-Sections/SectionMarket";
 
 import styles from "assets/jss/nextjs-material-kit/pages/components.js";
+
 
 const useStyles = makeStyles(styles);
 
@@ -56,10 +57,10 @@ export default function Market({coinList, secondPageCoin, thirdPageCoin, fourthP
           </GridContainer>
         </div>
       </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <SectionBasics coinList={coinList} secondPageCoin={secondPageCoin} thirdPageCoin={thirdPageCoin} 
+      {/* <div className={classNames(classes.main, classes.mainRaised)}> */}
+        <SectionMarket coinList={coinList} secondPageCoin={secondPageCoin} thirdPageCoin={thirdPageCoin} 
         fourthPageCoin={fourthPageCoin} fifthPageCoin={fifthPageCoin} />
-      </div>
+      {/* </div> */}
       <Footer />
     </div>
   );

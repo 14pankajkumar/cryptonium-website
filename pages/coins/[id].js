@@ -16,16 +16,14 @@ import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
 import SectionCoinData from "../../pages-sections/Detailpage-Sections/SectionCoinData";
 import SectionChart from "../../pages-sections/Detailpage-Sections/SectionChart"
-
 import styles from "assets/jss/nextjs-material-kit/pages/components.js";
+import SectionCoinNews from "../../pages-sections/Detailpage-Sections/SectionCoinNews";
 
 const useStyles = makeStyles(styles);
 
 export default function Home({coin, day, week, year, coinNewsData}) {
   const classes = useStyles();
 //   const { ...rest } = props;
-  console.log("Coin News", coinNewsData);
-  
   return (
     <div>
       <Header
@@ -54,10 +52,11 @@ export default function Home({coin, day, week, year, coinNewsData}) {
         </div>
       </Parallax>
             
-      <div className={classNames(classes.main, classes.mainRaised)}>
+      {/* <div className={classNames(classes.main, classes.mainRaised)}> */}
         <SectionCoinData coin={coin}/>
         <SectionChart day={day} week={week} year={year}/>
-      </div>
+        <SectionCoinNews coinNewsData={coinNewsData} />
+      {/* </div> */}
       <Footer />
     </div>
   );
@@ -78,7 +77,7 @@ export async function getServerSideProps(context) {
     const oneDay = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=1`)
     const sevenDay = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7`)
     const oneYear = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=365`)
-    const coinNews = await fetch(`https://newsapi.org/v2/everything?q=${id}&from=2021-06-18&sortBy=publishedAt&apiKey=eac4785ce4574e5494e1af3166215957`)
+    const coinNews = await fetch(`https://newsapi.org/v2/everything?q=${id}&sortBy=publishedAt&language=en&apiKey=eac4785ce4574e5494e1af3166215957`)
     
     const data = await res.json()
     const oneDayChart = await oneDay.json()
@@ -92,7 +91,7 @@ export async function getServerSideProps(context) {
             day: formatData(oneDayChart.prices),
             week: formatData(sevenDayChart.prices),
             year: formatData(oneYearChart.prices),
-            coinNewsData: coinNewsRes,
+            coinNewsData: coinNewsRes.articles,
         }
     }
 }

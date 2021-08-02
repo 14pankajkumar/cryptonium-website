@@ -22,7 +22,6 @@ import styles from "assets/jss/nextjs-material-kit/pages/components.js";
 const useStyles = makeStyles(styles);
 
 export default function News({newsData}) {
-  console.log("News", newsData)
   const classes = useStyles();
   // const { ...rest } = props;
   return (
@@ -53,11 +52,11 @@ export default function News({newsData}) {
         </div>
       </Parallax>
 
-      <div className={classNames(classes.main, classes.mainRaised)}>
+      {/* <div className={classNames(classes.main, classes.mainRaised)}> */}
 
-        <SectionNews/>
+        <SectionNews newsData={newsData} />
 
-      </div>
+      {/* </div> */}
       <Footer />
     </div>
   );
@@ -65,13 +64,13 @@ export default function News({newsData}) {
 
 export const getServerSideProps = async () => {
   const id = "crypto OR blockchain OR elon OR vitalik OR defi OR nft"
-  const res = await fetch(`https://newsapi.org/v2/everything?q=${id}&from=2021-06-18&sortBy=publishedAt&apiKey=eac4785ce4574e5494e1af3166215957`)
+  const res = await fetch(`https://newsapi.org/v2/everything?q=${id}&sortBy=publishedAt&language=en&apiKey=eac4785ce4574e5494e1af3166215957`)
 
   const newsRes = await res.json()
 
   return {
     props: {
-      newsData: newsRes,
+      newsData: newsRes.articles,
     }
   }
 }

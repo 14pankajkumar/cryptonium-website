@@ -6,7 +6,7 @@ const path = require("path");
 
 module.exports = withPlugins([[withSass], [withImages]], {
   images: {
-    domains: ['assets.coingecko.com'],
+    domains: ['assets.coingecko.com', "maglux-tech.herokuapp.com"],
   },
   webpack(config, options) {
     config.resolve.modules.push(path.resolve("./"));

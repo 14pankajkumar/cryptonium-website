@@ -172,7 +172,7 @@ export default function HeaderLinks(props) {
             <a className={classes.dropdownLink}
             onClick={async () => {
               await firebase.auth().signOut();
-              // window.location.href = "/"
+              window.location.href = "/"
             }}
             >
               Log Out

@@ -2,7 +2,7 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react components for routing our app without refresh
-import Link from "next/link";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
@@ -14,16 +14,14 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
-import SectionWatchlist from "../pages-sections/Components-Sections/SectionWatchlist"
-
 import styles from "assets/jss/nextjs-material-kit/pages/components.js";
-
+import Image from 'next/image'
 
 const useStyles = makeStyles(styles);
 
-export default function WatchList(props) {
+export default function Home({post}) {
   const classes = useStyles();
-  const { ...rest } = props;
+//   const { ...rest } = props;
   return (
     <div>
       <Header
@@ -35,9 +33,9 @@ export default function WatchList(props) {
           height: 90,
           color: "white"
         }}
-        {...rest}
+        // {...rest}
       />
-      <Parallax image={require("assets/img/nextjs_header.png")} style={{height:'200px'}}>
+      <Parallax image={post.image} style={{height:'200px'}}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
@@ -51,13 +49,35 @@ export default function WatchList(props) {
           </GridContainer>
         </div>
       </Parallax>
-
+            
       {/* <div className={classNames(classes.main, classes.mainRaised)}> */}
-
-        <SectionWatchlist/>
-
+      <div  className={classes.sections}>
+          <div className={classes.container}>
+          <div className={classes.title}>
+              <div style={{float:'left'}}>
+              <h2 className="title">{post.title} </h2>
+              </div>
+          </div>
+          <div className="bg-white mt-3 p-2 rounded border row">
+            <p>{post.body}</p>
+            </div>
+          </div>
+      </div>
       {/* </div> */}
       <Footer />
     </div>
   );
 }
+
+export async function getServerSideProps(context) {
+    const {id} = context.query
+    const res = await fetch(`https://maglux-tech.herokuapp.com/api/blogs/${id}`)
+    const blogPost = await res.json()
+    
+    return {
+        props: {
+            post: blogPost,
+        }
+    }
+}
+

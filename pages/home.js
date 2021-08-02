@@ -14,12 +14,14 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
-
 import styles from "assets/jss/nextjs-material-kit/pages/components.js";
+import NewsCard from "../pages-sections/HomePage-Section/NewsCard";
+import CoinsCard from "../pages-sections/HomePage-Section/CoinsCard";
+import BlogsCard from "../pages-sections/HomePage-Section/BlogsCard";
 
 const useStyles = makeStyles(styles);
 
-export default function Home() {
+export default function Home({newsData, coinList, blogData}) {
   const classes = useStyles();
   
   // const { ...rest } = props;
@@ -55,10 +57,31 @@ export default function Home() {
           </GridContainer>
         </div>
       </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <h1>Home</h1>
-      </div>
+      {/* <div className={classNames(classes.main, classes.mainRaised)}> */}
+        <NewsCard newsData={newsData} />
+        <CoinsCard coinList={coinList} />
+        <BlogsCard blogData={blogData} />
+      {/* </div> */}
       <Footer />
     </div>
   );
+}
+
+export const getServerSideProps = async () => {
+  const id = "crypto OR blockchain OR elon OR vitalik OR defi OR nft"
+  const res = await fetch(`https://newsapi.org/v2/everything?q=${id}&sortBy=publishedAt&language=en&apiKey=eac4785ce4574e5494e1af3166215957`)
+  const market = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false')
+  const blogs = await fetch('https://maglux-tech.herokuapp.com/api/blogs/')
+
+  const newsRes = await res.json()
+  const marketRes = await market.json()
+  const blogsRes = await blogs.json()
+
+  return {
+    props: {
+      newsData: newsRes.articles,
+      coinList: marketRes,
+      blogData: blogsRes
+    }
+  }
 }
